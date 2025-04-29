@@ -4,12 +4,12 @@ import app from "../config/firebase.config.js"
 
 const db = getFirestore(app);
 
-export async function addUser() {
+export async function addUser({name,age,gender}) {
     try {
       const res = await addDoc(collection(db, "users"), {
-        name: "hari",
-        age: 20,
-        gender: "male"
+        name,
+        age,
+        gender
       });
       console.log("Document written with ID:", res.id);
       return res.id;
