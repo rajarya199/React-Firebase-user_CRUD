@@ -3,7 +3,7 @@ import { Edit, Delete ,Trash} from 'lucide-react';
 
 import './App.css';
 import './index.css';
-import { addUser, getAllusers, updateUser } from './api/users.api';
+import { addUser, getAllusers, updateUser,deleteUser } from './api/users.api';
 
 function App() {
   const [usersInfo, setUsersInfo] = useState([]);
@@ -61,7 +61,6 @@ function App() {
     fetchUsers()
   };
 
-   // Populate form with user data for editing
    const handleEdit = (user) => {
     setUserData({
       name: user.name,
@@ -71,6 +70,16 @@ function App() {
     setEditingId(user.id);
   };
 
+  const handleDelete = async (id) => {
+    const confirmed = window.confirm('Are you sure you want to delete this user?');
+    if (!confirmed) return;
+  
+    const success = await deleteUser(id);
+    if (success) {
+      alert('User deleted successfully');
+      fetchUsers(); 
+    }
+  };
 
   return (
     <>
@@ -130,7 +139,8 @@ function App() {
             >
               <Edit />
             </button>
-            <button className="delete-btn">
+            <button className="delete-btn"
+            onClick={() => handleDelete(user.id)}>
               <Trash />
             </button>
           </td>
