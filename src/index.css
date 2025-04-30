@@ -88,3 +88,50 @@ body {
     background-color: #f9f9f9;
   }
   
+  .edit-btn {
+    background-color: #4caf50; 
+    border: none;
+    color: white; 
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    margin-right: 4px;
+  }
+  
+  .edit-btn:hover {
+    background-color: #45a049; 
+  }
+  
+  .edit-btn:focus {
+    outline: 2px solid #2e7d32; 
+    outline-offset: 2px;
+  }
+  
+  .delete-btn {
+    background-color: #e53935; 
+    border: none;
+    color: white; 
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+  
+  .delete-btn:hover {
+    background-color: #c62828; 
+  }
+  
+  .delete-btn:focus {
+    outline: 2px solid #b71c1c; 
+    outline-offset: 2px;
+  }
+  
