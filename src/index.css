@@ -8,14 +8,21 @@ body {
   }
   
   .app-container {
-    max-width: 400px;
-    margin: 80px auto;
+    max-width: 500px;
+    margin: 40px auto;
     padding: 2rem;
     background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
-  
+  .container {
+    max-width: 800px;
+    margin: 10px auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
   .form-title {
     text-align: center;
     color: #333;
@@ -56,5 +63,28 @@ body {
   
   .user-form button:hover {
     background-color: #0056b3;
+  }
+  
+
+  .user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+  
+  .user-table th,
+  .user-table td {
+    padding: 12px;
+    border: 1px solid #ccc;
+    text-align: left;
+  }
+  
+  .user-table th {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .user-table tr:nth-child(even) {
+    background-color: #f9f9f9;
   }
   
