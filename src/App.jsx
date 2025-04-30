@@ -1,41 +1,42 @@
 import { useState } from 'react';
-import './App.css'
+import './App.css'; // Optional if you still use App.css
+import './index.css'; // ✅ Ensure index.css is imported
 import { addUser } from './api/users.api';
+
 function App() {
-const[userData,setUserData]=useState({
-  name: '',
-  age: '',
-  gender: '',
-})
-const handleChange = (e) => {
-  const { name, value } = e.target;
-  setUserData((prev) => ({
-    ...prev,
-    [name]: value,
-  }));
-};
+  const [userData, setUserData] = useState({
+    name: '',
+    age: '',
+    gender: '',
+  });
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  // Convert age to number before sending
-  const newUser = {
-    ...userData,
-    age: parseInt(userData.age, 10),
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  const id = await addUser(newUser);
-  if (id) {
-    alert(`User added with ID: ${id}`);
-    setUserData({ name: '', age: '', gender: '' }); // Reset form
-  }
-};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const newUser = {
+      ...userData,
+      age: parseInt(userData.age, 10),
+    };
+
+    const id = await addUser(newUser);
+    if (id) {
+      alert(`User added with ID: ${id}`);
+      setUserData({ name: '', age: '', gender: '' });
+    }
+  };
 
   return (
-    <>
-     <h2>Add user</h2>
-
-     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '200px' }}>
+    <div className="app-container">
+      <h2 className="form-title">Add User</h2>
+      <form onSubmit={handleSubmit} className="user-form">
         <input
           type="text"
           name="name"
@@ -60,8 +61,8 @@ const handleSubmit = async (e) => {
         </select>
         <button type="submit">Add User</button>
       </form>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
