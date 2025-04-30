@@ -18,4 +18,23 @@ export async function addUser({name,age,gender}) {
     }
   }
   
+
+  export async function getAllusers(){
+    try{
+      
+    const snapshot = await getDocs(collection(db, 'users'));
+    const users=snapshot.docs.map((doc)=>({
+      id:doc.id,
+      ...doc.data()
+    }))
+    return users;
+
+    }
+
+    catch(error){
+      console.error("error fetching data",error)
+      return [];
+
+    }
+  }
  
