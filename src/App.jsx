@@ -1,6 +1,8 @@
 import { useState ,useEffect} from 'react';
-import './App.css'; // Optional if you still use App.css
-import './index.css'; // ✅ Ensure index.css is imported
+import { Edit, Delete ,Trash} from 'lucide-react';
+
+import './App.css';
+import './index.css';
 import { addUser, getAllusers } from './api/users.api';
 
 function App() {
@@ -83,6 +85,7 @@ function App() {
       <th>Name</th>
       <th>Age</th>
       <th>Gender</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
@@ -94,6 +97,14 @@ function App() {
           <td>{user.name}</td>
           <td>{user.age}</td>
           <td>{user.gender}</td>
+          <td>
+            <button className="edit-btn">
+              <Edit />
+            </button>
+            <button className="delete-btn">
+              <Trash />
+            </button>
+          </td>
         </tr>
       ))
     )}
