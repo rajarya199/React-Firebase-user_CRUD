@@ -3,16 +3,25 @@ import { Edit, Delete ,Trash} from 'lucide-react';
 
 import './App.css';
 import './index.css';
-import { addUser, getAllusers } from './api/users.api';
+import { addUser, getAllusers, updateUser } from './api/users.api';
 
 function App() {
   const [usersInfo, setUsersInfo] = useState([]);
+  const [editingId, setEditingId] = useState(null);
 
   const [userData, setUserData] = useState({
     name: '',
     age: '',
     gender: '',
   });
+  const fetchUsers = async () => {
+    const data = await getAllusers();
+    setUsersInfo(data);
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,21 +39,38 @@ function App() {
       age: parseInt(userData.age, 10),
     };
 
-    const id = await addUser(newUser);
-    if (id) {
-      alert(`User added with ID: ${id}`);
-      setUserData({ name: '', age: '', gender: '' });
+    if (editingId) {
+      // Update existing user
+      const success = await updateUser(editingId, newUser);
+      if (success) {
+        alert('User updated successfully');
+        setEditingId(null);
+      } else {
+        alert('Failed to update user');
+      }
+    } else {
+      // Add new user
+      const id = await addUser(newUser);
+      if (id) {
+        alert(`User added with ID: ${id}`);
+      } else {
+        alert('Failed to add user');
+      }
     }
+    setUserData({ name: '', age: '', gender: '' });
+    fetchUsers()
   };
 
-  const fetchUsers = async () => {
-    const data = await getAllusers();
-    setUsersInfo(data);
+   // Populate form with user data for editing
+   const handleEdit = (user) => {
+    setUserData({
+      name: user.name,
+      age: user.age,
+      gender: user.gender,
+    });
+    setEditingId(user.id);
   };
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
 
   return (
     <>
@@ -73,7 +99,7 @@ function App() {
           <option value="female">Female</option>
           <option value="other">Other</option>
         </select>
-        <button type="submit">Add User</button>
+        <button type="submit">{editingId ? 'Update User' : 'Add User'}</button>
       </form>
       </div>
       <div className='container'>
@@ -98,7 +124,10 @@ function App() {
           <td>{user.age}</td>
           <td>{user.gender}</td>
           <td>
-            <button className="edit-btn">
+            <button className="edit-btn"
+            onClick={()=>handleEdit(user)}
+            title='edit user'
+            >
               <Edit />
             </button>
             <button className="delete-btn">
