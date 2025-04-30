@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs,addDoc,setDoc,doc,updateDoc } from 'firebase/firestore';
+import { getFirestore, collection, getDocs,addDoc,setDoc,doc,updateDoc,deleteDoc } from 'firebase/firestore';
 import app from "../config/firebase.config.js"
 
 const db = getFirestore(app);
@@ -48,6 +48,17 @@ export async function addUser({name,age,gender}) {
       return true;
     } catch (error) {
       console.error('Error updating user:', error);
+      return false;
+    }
+  }
+
+  export async function deleteUser(id) {
+    try {
+      const userRef = doc(db, 'users', id);
+      await deleteDoc(userRef);
+      return true;
+    } catch (error) {
+      console.error('Error deleting user:', error);
       return false;
     }
   }
